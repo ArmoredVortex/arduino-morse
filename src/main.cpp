@@ -1,5 +1,5 @@
 #include <Arduino.h>
-char stringToMorseCode[] = "Hello";
+char stringToMorseCode[] = "hello";
 
 // Create variable to define the output pins
 int led12 = 13;      // blink an led on output 12
@@ -18,9 +18,7 @@ int note = 1500;      // music note/pitch
 		  (pause between dots and dashes within the character)
 	  Pause between characters = Dot length x 3
 	  Pause between words = Dot length x 7
-  
-				http://www.nu-ware.com/NuCode%20Help/index.html?m...
-*/
+  */
 int dotLen = 100;     // length of the morse code 'dot'
 int dashLen = dotLen * 3;    // length of the morse code 'dash'
 int elemPause = dotLen;  // length of the pause between elements of a character
@@ -58,7 +56,6 @@ void LightsOff(int delayTime)
 // *** Characters to Morse Code Conversion *** //
 void GetChar(char tmpChar)
 {
-	// Take the passed character and use a switch case to find the morse code for that character
 	switch (tmpChar) {
 	  case 'a':	
 		MorseDot();
@@ -287,12 +284,7 @@ void setup() {
   // initialize the digital pin as an output for LED lights.
   pinMode(led12, OUTPUT); 
   pinMode(led6, OUTPUT); 
-}
-
-// Create a loop of the letters/words you want to output in morse code (defined in string at top of code)
-void loop()
-{ 
-  // Loop through the string and get each character one at a time until the end is reached
+    // Loop through the string and get each character one at a time until the end is reached
   for (int i = 0; i < sizeof(stringToMorseCode) - 1; i++)
   {
     // Get the character in the current position
@@ -303,7 +295,9 @@ void loop()
 	GetChar(tmpChar);
 	delay(Spaces);
   }
-  
-  // At the end of the string long pause before looping and starting again
-  LightsOff(8000);			
+}
+
+void loop()
+{ 
+		
 }
