@@ -1,9 +1,8 @@
 #include <Arduino.h>
-char stringToMorseCode[] = "hello";
-
+char stringToMorseCode[] = "Hello 123";
 // Create variable to define the output pins
 int led12 = 13;      // blink an led on output 12
-int led6 = 6;        // blink an led on output 6
+int led6 = 11;        // blink an led on output 6
 int audio8 = 8;      // output audio on pin 8
 int note = 1500;      // music note/pitch
 
@@ -29,15 +28,17 @@ int wordPause = dotLen * 7;  // length of the pause between words
 // DOT
 void MorseDot()
 {
+  Serial.print("."); 
   digitalWrite(led12, HIGH);  	// turn the LED on 
   digitalWrite(led6, HIGH); 
   tone(audio8, note, dotLen);	// start playing a tone
-  delay(dotLen);             	// hold in this position
+  delay(dotLen);				// hold in this position            	
 }
 
 // DASH
 void MorseDash()
 {
+  Serial.print("-");
   digitalWrite(led12, HIGH);  	// turn the LED on 
   digitalWrite(led6, HIGH);
   tone(audio8, note, dashLen);	// start playing a tone
@@ -84,7 +85,7 @@ void GetChar(char tmpChar)
 		LightsOff(elemPause);
 		break;
 	  case 'd':
-		MorseDash();
+	  	MorseDash();
 		LightsOff(elemPause);
 		MorseDash();
 		LightsOff(elemPause);
@@ -273,14 +274,137 @@ void GetChar(char tmpChar)
 		MorseDot();
 		LightsOff(elemPause);
 		break;
+	  case '1':
+	  	MorseDot();
+		LightsOff(elemPause);
+		MorseDash();
+		LightsOff(elemPause);
+		MorseDash();
+		LightsOff(elemPause);
+		MorseDash();
+		LightsOff(elemPause);
+		MorseDash();
+		LightsOff(elemPause);
+		break;
+	  case '2':
+	  	MorseDot();
+		LightsOff(elemPause);
+		MorseDot();
+		LightsOff(elemPause);
+	  	MorseDash();
+		LightsOff(elemPause);
+		MorseDash();
+		LightsOff(elemPause);
+		MorseDash();
+		LightsOff(elemPause);
+		break;
+	  case '3':
+	  	MorseDot();
+		LightsOff(elemPause);
+		MorseDot();
+		LightsOff(elemPause);
+		MorseDot();
+		LightsOff(elemPause);
+		MorseDash();
+		LightsOff(elemPause);
+		MorseDash();
+		LightsOff(elemPause);
+		break;
+	  case '4':
+	  	MorseDot();
+		LightsOff(elemPause);
+		MorseDot();
+		LightsOff(elemPause);
+		MorseDot();
+		LightsOff(elemPause);
+		MorseDot();
+		LightsOff(elemPause);
+		MorseDash();
+		LightsOff(elemPause);
+		break;
+	  case '5':
+	  	MorseDot();
+		LightsOff(elemPause);
+		MorseDot();
+		LightsOff(elemPause);
+		MorseDot();
+		LightsOff(elemPause);
+		MorseDot();
+		LightsOff(elemPause);
+		MorseDot();
+		LightsOff(elemPause);
+		break;
+	  case '6':
+	  	MorseDash();
+		LightsOff(elemPause);
+	  	MorseDot();
+		LightsOff(elemPause);
+		MorseDot();
+		LightsOff(elemPause);
+		MorseDot();
+		LightsOff(elemPause);
+		MorseDot();
+		LightsOff(elemPause);
+		break;
+	  case '7':
+	  	MorseDash();
+		LightsOff(elemPause);
+		MorseDash();
+		LightsOff(elemPause);
+		MorseDot();
+		LightsOff(elemPause);
+		MorseDot();
+		LightsOff(elemPause);
+		MorseDot();
+		LightsOff(elemPause);
+		break;
+	  case '8':
+	  	MorseDash();
+		LightsOff(elemPause);
+		MorseDash();
+		LightsOff(elemPause);
+		MorseDash();
+		LightsOff(elemPause);
+		MorseDot();
+		LightsOff(elemPause);
+		MorseDot();
+		LightsOff(elemPause);
+		break;
+	  case '9':
+	  	MorseDash();
+		LightsOff(elemPause);
+		MorseDash();
+		LightsOff(elemPause);
+		MorseDash();
+		LightsOff(elemPause);
+		MorseDash();
+		LightsOff(elemPause);
+		MorseDot();
+		LightsOff(elemPause);
+		break;
+	  case '0':
+	  	MorseDash();
+		LightsOff(elemPause);
+		MorseDash();
+		LightsOff(elemPause);
+		MorseDash();
+		LightsOff(elemPause);
+		MorseDash();
+		LightsOff(elemPause);
+		MorseDash();
+		LightsOff(elemPause);
+		break;
 	  default: 
 		// If a matching character was not found it will default to a blank space
-		LightsOff(Spaces);			
+		LightsOff(Spaces);		
 	}
 }
 
 // the setup routine runs once when you press reset:
-void setup() {                
+void setup() {    
+  // initialize serial
+  Serial.begin(9600);
+  Serial.println(" ");
   // initialize the digital pin as an output for LED lights.
   pinMode(led12, OUTPUT); 
   pinMode(led6, OUTPUT); 
@@ -292,7 +416,10 @@ void setup() {
 	// Set the case to lower case
 	tmpChar = toLowerCase(tmpChar);
 	// Call the subroutine to get the morse code equivalent for this character
+	Serial.print(tmpChar);
+	Serial.print(" ");
 	GetChar(tmpChar);
+	Serial.println("");
 	delay(Spaces);
   }
 }
